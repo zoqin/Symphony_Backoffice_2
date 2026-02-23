@@ -1,5 +1,6 @@
 security:
     role_hierarchy:
+        ROLE_MANAGER: ROLE_USER
         ROLE_ADMIN: ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
