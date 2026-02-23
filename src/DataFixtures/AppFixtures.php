@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Product;
 use App\Entity\User;
 use App\Enum\UserRole;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -48,6 +49,27 @@ class AppFixtures extends Fixture
             ->addRole(UserRole::USER)
             ->setPassword($this->hasher->hashPassword($user, 'password'));
         $manager->persist($user);
+
+        $productNames = [
+            'Mercer Sphere',
+            'Somersloop',
+            'AI Limiter',
+            'Alclad Aluminum Sheet',
+            'Aluminum Casing',
+            'Biomass',
+            'Cable',
+            'Circuit Board'
+
+        ];
+
+        foreach ($productNames as $name) {
+            $product = new Product();
+            $product->setName($name)
+                ->setDescription('Description très cool de '.$name.' meilleur produit certifié ficsit')
+                ->setPrice((string) (mt_rand(1000, 100000))/100);
+
+            $manager->persist($product);
+        }
 
         $manager->flush();
     }

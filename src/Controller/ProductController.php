@@ -16,12 +16,40 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/product')]
 final class ProductController extends AbstractController
 {
-    #[Route(name: 'app_product_index', methods: ['GET'])]
+    #[Route(name: 'app_product_index')]
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAllOrderedByPrice(),
         ]);
+    }
+
+    #[Route('/export', name: 'app_product_export', methods: ['GET'])]
+    public function export(ProductRepository $productRepository, CsvExporter $csvExporter): Response
+    {
+        $products = $productRepository->findAllOrderedByPrice();
+        $data = [];
+
+        foreach ($products as $product) {
+            $data[] = [
+                $product->getName(),
+                $product->getDescription(),
+                $product->getPrice(),
+            ];
+        }
+
+        $csvContent = $csvExporter->export($data, ['name', 'description', 'price']);
+
+        $response = new Response($csvContent);
+        $response->headers->set('Content-Type', 'text/csv');
+
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'products.csv'
+        );
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
@@ -81,31 +109,4 @@ final class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/export', name: 'app_product_export', methods: ['GET'])]
-    public function export(ProductRepository $productRepository, CsvExporter $csvExporter): Response
-    {
-        $products = $productRepository->findAllOrderedByPrice();
-        $date = [];
-
-        foreach ($products as $product) {
-            $data[] = [
-                $product->getName(),
-                $product->getDescription(),
-                $product->getPrice(),
-            ];
-        }
-
-        $csvContent = $csvExporter->export($data, ['Nom', 'Description', 'Prix']);
-
-        $response = new Response($csvContent);
-        $response->headers->set('Content-Type', 'text/csv');
-
-        $disposition = $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            'products.csv'
-        );
-        $response->headers->set('Content-Disposition', $disposition);
-
-        return $response;
-    }
 }
