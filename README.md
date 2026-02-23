@@ -64,6 +64,15 @@
 
 - Notez comment fonctionne votre projet dans le fichier README.md et mettez à jour ce fichier au fur et à mesure de l'avancement de votre projet pour aider les autres développeurs à comprendre comment fonctionne votre projet.
 
+- Commande import .csv produit
+    ```bash
+    php bin/console app:import-products [<filename>] #default import_produits.csv
+    ```
+    tester rapidement en important le csv précédemment exporté
+    ```bash
+    php bin/console app:import-products products.csv
+    ```
+
 ---
 
 ## Développer
