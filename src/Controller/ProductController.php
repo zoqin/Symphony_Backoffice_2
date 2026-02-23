@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\Registration\RegistrationFlow;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -50,6 +51,29 @@ final class ProductController extends AbstractController
         $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
+    }
+
+    #[Route('/formflow', name: 'app_product_formflow')]
+    public function form(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $product = new Product();
+
+        /** @var FormFlowInterface $flow */
+        $flow = $this->createForm(ProductType::class, $product)
+            ->handleRequest($request);
+
+        if ($flow->isSubmitted() && $flow->isValid() && $flow->isFinished()) {
+            $entityManager->persist($product);
+
+            $this->addFlash('success', 'Formulaire correctement complété !');
+
+            return $this->redirectToRoute('app_product_index');
+        }
+
+        return $this->render('product/flow_new.html.twig', [
+            'form'=> $flow->getStepForm()
+        ]);
+
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
