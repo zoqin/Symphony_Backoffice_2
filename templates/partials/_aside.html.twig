@@ -14,15 +14,15 @@
         <a href="{{ path('app_product_index') }}" class="block p-2 hover:bg-slate-700 rounded {{ app.request.attributes.get('_route') starts with 'app_product' ? 'border-l-4 border-blue-500'}}">Produits</a>
 
         {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
-            <a href="#" class="block p-2 hover:bg-slate-700 rounded">Clients</a>
+            <a href="{{ path('app_client_index') }}" class="block p-2 hover:bg-slate-700 rounded {{ app.request.attributes.get('_route') starts with 'app_client' ? 'border-l-4 border-blue-500'}}">Clients</a>
         {% endif %}
     </nav>
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="p-4 border-t border-slate-700">
-        <p class="text-sm text-slate-400">Connecté en tant que :</p>
-        <p class="font-medium text-blue-400">{{ app.user.firstname }} {{ app.user.lastname }}</p>
-        <a href="{{ path('app_logout') }}" class="block mt-2 text-xs text-red-400 hover:underline">Se déconnecter</a>
-    </div>
+        <div class="p-4 border-t border-slate-700">
+            <p class="text-sm text-slate-400">Connecté en tant que :</p>
+            <p class="font-medium text-blue-400">{{ app.user.firstname }} {{ app.user.lastname }}</p>
+            <a href="{{ path('app_logout') }}" class="block mt-2 text-xs text-red-400 hover:underline">Se déconnecter</a>
+        </div>
     {% endif %}
 </aside>
