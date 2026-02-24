@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/customer')]
 final class CustomerController extends AbstractController
 {
     #[Route(name: 'app_customer_index', methods: ['GET'])]
+    #[IsGranted('CUSTOMER_ACCESS')]
     public function index(CustomerRepository $customerRepository): Response
     {
         return $this->render('customer/index.html.twig', [
@@ -23,6 +25,7 @@ final class CustomerController extends AbstractController
     }
 
     #[Route('/new', name: 'app_customer_new', methods: ['GET', 'POST'])]
+    #[IsGranted('CUSTOMER_ACCESS')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $customer = new Customer();
@@ -43,6 +46,7 @@ final class CustomerController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_customer_show', methods: ['GET'])]
+    #[IsGranted('CUSTOMER_ACCESS')]
     public function show(Customer $customer): Response
     {
         return $this->render('customer/show.html.twig', [
@@ -51,6 +55,7 @@ final class CustomerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_customer_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('CUSTOMER_ACCESS')]
     public function edit(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CustomerType::class, $customer);
@@ -69,6 +74,7 @@ final class CustomerController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_customer_delete', methods: ['POST'])]
+    #[IsGranted('CUSTOMER_ACCESS')]
     public function delete(Request $request, Customer $customer, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$customer->getId(), $request->getPayload()->getString('_token'))) {
