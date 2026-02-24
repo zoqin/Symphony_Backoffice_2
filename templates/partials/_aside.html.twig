@@ -14,7 +14,7 @@
         <a href="{{ path('app_product_index') }}" class="block p-2 hover:bg-slate-700 rounded {{ app.request.attributes.get('_route') starts with 'app_product' ? 'border-l-4 border-blue-500'}}">Produits</a>
 
         {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_client_index') }}" class="block p-2 hover:bg-slate-700 rounded {{ app.request.attributes.get('_route') starts with 'app_client' ? 'border-l-4 border-blue-500'}}">Clients</a>
+            <a href="{{ path('app_customer_index') }}" class="block p-2 hover:bg-slate-700 rounded {{ app.request.attributes.get('_route') starts with 'app_customer' ? 'border-l-4 border-blue-500'}}">Clients</a>
         {% endif %}
     </nav>
 

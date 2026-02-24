@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Customer;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Enum\UserRole;
@@ -69,6 +70,32 @@ class AppFixtures extends Fixture
                 ->setPrice((string) (mt_rand(1000, 100000))/100);
 
             $manager->persist($product);
+        }
+
+        $lastnames = [
+            'Charles',
+            'Betti',
+            'Poutoux'
+        ];
+        $firstnames = [
+            'Philipe',
+            'Cindy',
+            'Benoit'
+        ];
+        $adresses = [
+            '3 rue gourmand',
+            '1478 avenu présages',
+            '45 du IIème'
+        ];
+
+        foreach ($lastnames as $index => $lastname) {
+            $customer = new Customer();
+            $customer->setFirstname($firstnames[$index])
+                ->setLastname($lastname)
+                ->setEmail($firstnames[$index].$lastname.'@test.com')
+                ->setAddress($adresses[$index]);
+
+            $manager->persist($customer);
         }
 
         $manager->flush();

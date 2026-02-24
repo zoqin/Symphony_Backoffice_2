@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientRepository;
+use App\Repository\CustomerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[ORM\Entity(repositoryClass: CustomerRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé par un autre client.')]
-class Client
+class Customer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -54,6 +54,11 @@ class Client
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

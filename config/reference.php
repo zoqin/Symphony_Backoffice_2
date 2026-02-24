@@ -471,7 +471,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         enabled?: bool|Param, // Default: false
  *     },
  *     disallow_search_engine_index?: bool|Param, // Enabled by default when debug is enabled. // Default: true
- *     http_client?: bool|array{ // HTTP Client configuration
+ *     http_client?: bool|array{ // HTTP Customer configuration
  *         enabled?: bool|Param, // Default: true
  *         max_host_connections?: int|Param, // The maximum number of connections to a single host.
  *         default_options?: array{
@@ -1291,7 +1291,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 cas?: array{
  *                     validation_url: scalar|null|Param, // CAS server validation URL
  *                     prefix?: scalar|null|Param, // CAS prefix // Default: "cas"
- *                     http_client?: scalar|null|Param, // HTTP Client service // Default: null
+ *                     http_client?: scalar|null|Param, // HTTP Customer service // Default: null
  *                 },
  *                 oauth2?: scalar|null|Param,
  *             },
@@ -1462,7 +1462,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             collection?: scalar|null|Param, // Default: "logs"
  *         },
  *         mongodb?: string|array{
- *             id?: scalar|null|Param, // ID of a MongoDB\Client service
+ *             id?: scalar|null|Param, // ID of a MongoDB\Customer service
  *             uri?: scalar|null|Param,
  *             username?: scalar|null|Param,
  *             password?: scalar|null|Param,
