@@ -30,7 +30,7 @@ final class UserVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         return match($attribute) {
             self::MANAGE => in_array('ROLE_ADMIN', $user->getRoles()),
-            default => throw new \LogicException('This code should not be reached!')
+            default => false //throw new \LogicException('This code should not be reached!')
         };
     }
 }
