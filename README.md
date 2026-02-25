@@ -72,6 +72,11 @@
     ```bash
     php bin/console app:import-products products.csv
     ```
+- Commande création client
+    ```bash
+    php bin/console app:create-customer
+    ```
+    La commande est intuitive les données sont demandé les une après les autres, la commande s'occupe de vérifier la validité des données saisies.
 
 ---
 
@@ -85,3 +90,50 @@ php bin/console tailwind:build --watch
 
 Vous pouvez fermer votre terminal après la session de développement
 
+---
+
+## Fonctionnalité implémentée
+### Mise en place du projet
+- clone d'un boilerplate
+- ajout .env.local
+- ajout Tailwind sans Webpack
+- Entité avec le maker
+  - User
+  - Product
+- Rôle
+  - User
+  - Admin
+  - Manager
+- Fixtures pour 3 utilisateurs aux roles différents
+- Système d'authentification (pas de formulaire d'inscription comme optionnel)
+
+### Gestion des utilisateurs
+- CRUD User généré par le maker et personnalisé
+- Voter généré par le maker et personnalisé
+- Implémentation du voter en concordance avec les exigences
+
+### Gestion des produits
+- CRUD Product généré par le maker et personnalisé
+- Voter généré par le maker et personnalisé
+- Implémentation du voter en concordance avec les exigences
+- Requête personnalisée pour trier les produits par prix décroissant, utilisez pour afficher la liste
+- Fonctionnalité d'export CSV au clique d'un bouton dans un service
+- Commande Symfony pour importer un CSV
+
+### Gestion des clients
+- Entité
+- Ajout de validation sur les champs
+- CRUD customer généré par le maker et personnalisé
+- Voter généré par le maker et personnalisé
+- Implémentation du voter en concordance avec les exigences
+- Commande Symfony pour créer des utilisateurs
+
+## TODO
+- [ ] passé le projet en Symfony 7.4 (trouver comment faire)
+  - [ ] exploité le pseudo code du Multi-step form pour valider la fonctionnalité
+### Optionnel
+- [ ] Améliorer la qualité du code
+- [ ] Implémenter des tests
+- [ ] Améliorer l'UI
+- [ ] Ajouté un formulaire d'inscription
+- [ ] Rendre la sidebar rétractable avec le bouton burger
