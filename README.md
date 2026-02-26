@@ -90,6 +90,23 @@ php bin/console tailwind:build --watch
 
 Vous pouvez fermer votre terminal après la session de développement
 
+### Environnement de développement
+#### Docker php/composer
+
+On peut facilement utiliser cette commande docker pour monter un environnement de développement à la racine du projet avec php 8.4. Essentiel pour développé en Symfony 7.4
+
+```bash
+docker run -it --rm `
+    -v "${PWD}:/workspace" `
+    -w /workspace `
+    -u root `
+    --name symfony-dev `
+    --entrypoint /bin/bash `
+    fbraz3/php-composer:8.4 `
+    -c "git config --global --add safe.directory /workspace && exec /bin/bash"
+```
+
+
 ---
 
 ## Fonctionnalité implémentée
