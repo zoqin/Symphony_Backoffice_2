@@ -23,8 +23,10 @@
 
 1. Cloner le projet
     - sur windows installer docker et une distro Ubuntu puis cloner le projet dans `\\wsl.localhost\Ubuntu\home\{user}\{dossier personnalisé}`
-        > [!WARNING]
-        > Sur windows la navigation sera trop lente c'est pourquoi on favorise un clone directement dans wsl
+
+> [!WARNING]
+> Sur windows la navigation sera trop lente c'est pourquoi on favorise un clone directement dans wsl
+
 2. Ouvrer le projet dans votre IDE
 3. Ouvrer un terminal à la racine du projet
 4. Lancer le docker-compose

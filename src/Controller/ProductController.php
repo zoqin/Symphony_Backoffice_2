@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
-use App\Form\Registration\RegistrationFlow;
+use App\Form\Product\Step\Data\ProductFlowDto;
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Form\Product\ProductFlowType;
 use App\Repository\ProductRepository;
 use App\Service\CsvExporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Flow\FormFlowInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -63,7 +65,7 @@ final class ProductController extends AbstractController
         $product = new Product();
 
         /** @var FormFlowInterface $flow */
-        $flow = $this->createForm(ProductType::class, $product)
+        $flow = $this->createForm(ProductFlowType::class, new ProductFlowDto())
             ->handleRequest($request);
 
         if ($flow->isSubmitted() && $flow->isValid() && $flow->isFinished()) {
@@ -75,7 +77,7 @@ final class ProductController extends AbstractController
         }
 
         return $this->render('product/flow_new.html.twig', [
-            'form'=> $flow->getStepForm()
+            'form'=> $flow->getStepForm(),
         ]);
 
     }

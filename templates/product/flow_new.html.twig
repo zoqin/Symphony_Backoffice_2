@@ -7,28 +7,35 @@
         <p class="text-sm font-medium text-gray-500">
             Étape {{ form.vars.cursor.stepIndex + 1 }} sur {{ form.vars.cursor.totalSteps }}
         </p>
-
-        {# Barre de progression visuelle #}
         <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
             {% set percentage = ((form.vars.cursor.stepIndex + 1) / form.vars.cursor.totalSteps) * 100 %}
             <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ percentage }}%"></div>
         </div>
     </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
+    {{ form_start(form, {attr: {'data-turbo': 'false'}}) }}
+    {{ form_widget(form[form.vars.cursor.currentStep]) }}
 
     <div class="mt-6 flex justify-between">
-        {# Bouton Précédent (si on n'est pas à la première étape) #}
-        {% if form.vars.cursor.stepIndex > 0 %}
-            <button type="submit" name="flow_prev" class="px-4 py-2 bg-gray-500 text-white rounded">Précédent</button>
+        {% if form.navigator.back is defined %}
+            {{ form_widget(form.navigator.back, {
+                attr: {class: 'px-4 py-2 bg-gray-500 text-white rounded'}
+            }) }}
         {% else %}
-            <div></div> {# Pour garder le bouton Suivant à droite #}
+            <div></div>
         {% endif %}
 
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
-            {{ form.vars.cursor.stepIndex + 1 == form.vars.cursor.totalSteps ? 'Valider et Enregistrer' : 'Suivant' }}
-        </button>
+        {% if form.navigator.next is defined %}
+            {{ form_widget(form.navigator.next, {
+                attr: {class: 'px-4 py-2 bg-blue-600 text-white rounded'}
+            }) }}
+        {% endif %}
+
+        {% if form.navigator.finish is defined %}
+            {{ form_widget(form.navigator.finish, {
+                attr: {class: 'px-4 py-2 bg-blue-600 text-white rounded'}
+            }) }}
+        {% endif %}
     </div>
     {{ form_end(form) }}
 {% endblock %}
