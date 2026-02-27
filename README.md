@@ -23,7 +23,7 @@
 
 1. Cloner le projet
     - sur windows installer docker et une distro Ubuntu puis cloner le projet dans `\\wsl.localhost\Ubuntu\home\{user}\{dossier personnalisé}`
-        !!![Warning]
+        > [!WARNING]
         > Sur windows la navigation sera trop lente c'est pourquoi on favorise un clone directement dans wsl
 2. Ouvrer le projet dans votre IDE
 3. Ouvrer un terminal à la racine du projet
@@ -44,7 +44,7 @@ php bin/console doctrine:fixtures:load #yes
 ```
 7. Vous pouvez accèder à l'application sur http://localhost/
 
-!!![Note]
+> [!NOTE]
 > Si vous n'arrivez pas à acceder à localhost vous avez peut-être un conflit sur le port 80
 
 ## Utilisation
