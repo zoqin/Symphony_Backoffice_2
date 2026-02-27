@@ -10,6 +10,7 @@ use App\Form\Product\Step\ProductLogisticsStepType;
 use App\Form\Product\Step\ProductLicenseStepType;
 use Symfony\Component\Form\Flow\Type\NavigatorFlowType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Flow\FormFlowBuilderInterface;
 
 class ProductFlowType extends AbstractFlowType
 {
