@@ -3,6 +3,7 @@
 namespace App\Form\Product\Step;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProductTypeStepType extends AbstractType

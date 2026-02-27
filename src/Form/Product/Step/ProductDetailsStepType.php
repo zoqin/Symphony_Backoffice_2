@@ -15,6 +15,5 @@ class ProductDetailsStepType extends AbstractType
             ->add('name')
             ->add('description', TextareaType::class)
             ->add('price', MoneyType::class, ['currency' => 'EUR', 'divisor' => 1]);
-
     }
 }

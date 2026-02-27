@@ -19,44 +19,33 @@
     - Installer les extensions (whatwedo.twig, TheNouillet.symfony-vscode, DEVSENSE.phptools-vscode,
       bmewburn.vscode-intelephense-client, zobo.php-intellisense)
 
-## Installation avec IDX
-
-1. Fork le projet sur votre compte GitHub
-2. Importer le projet depuis votre GitHub sur IDX
-3. Le projet est déjà lancé il suffit d'aller dans l'onglet du terminal avec `start` puis cliquer sur le lien `localhost`
-4. Lancer la commande `composer i` pour installer les dépendances du projet.
-5. Pour accéder à la base de données `mysql -u root`
-6. Dans un fichier à la racine `.env.local` mettre cette variable d'environnement
-   `DATABASE_URL="mysql://root:@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"`
-
 ## Installation en local
 
 1. Cloner le projet
-2. Installer PHP >= 8.2 et Composer (Sur votre machine utiliser XAMPP pour windows, MAMP pour mac ou LAMP pour linux bien prendre la version PHP 8.2)
-3. Installer les dépendances du projet avec la commande `composer install`
-4. Faire un virtual host sur votre serveur local (XAMPP par exemple pour Windows)
-- Ouvrir le fichier `httpd-vhosts.conf` dans le répertoire `C:\xampp\apache\conf\extra`
-    - Ajouter le code suivant à la fin du fichier
-   ```
-   <VirtualHost *>
-       DocumentRoot "C:\Users\votre_username\Documents\iut\symfony_base\public"
-       ServerName symfony_base.local
-       
-       <Directory "C:\Users\votre_username\Documents\iut\symfony_base\public">
-           AllowOverride All
-           Require all granted
-       </Directory>
-   </VirtualHost>
-   ```
-    - Ajouter l'adresse IP de votre machine dans le fichier `C:\Windows\System32\drivers\etc\hosts`
-   ```
-   127.0.0.1 symfony_base.local
-   ```
-    - Redémarrer Apache
-    - Accéder à l'adresse `symfony_base.local` dans votre navigateur
+    - sur windows installer docker et une distro Ubuntu puis cloner le projet dans `\\wsl.localhost\Ubuntu\home\{user}\{dossier personnalisé}`
+        !!![Warning]
+        > Sur windows la navigation sera trop lente c'est pourquoi on favorise un clone directement dans wsl
+2. Ouvrer le projet dans votre IDE
+3. Ouvrer un terminal à la racine du projet
+4. Lancer le docker-compose
+```bash
+docker compose up -d 
+```
+5. Entrer dans le terminal de docker
+```bash
+docker compose exec php bash
+```
+6. Installez le nécessaire pour terminer l'installation
+```bash
+composer install
+php bin/console tailwind:build
+php bin/console doctrine:migrations:migrate #yes
+php bin/console doctrine:fixtures:load #yes
+```
+7. Vous pouvez accèder à l'application sur http://localhost/
 
-4. Créer un fichier `.env.local` à la racine du projet et ajouter la configuration de la base de données
-5. Créer la base de données avec la commande `php bin/console doctrine:database:create`
+!!![Note]
+> Si vous n'arrivez pas à acceder à localhost vous avez peut-être un conflit sur le port 80
 
 ## Utilisation
 
@@ -146,7 +135,7 @@ docker run -it --rm `
 - Commande Symfony pour créer des utilisateurs
 
 ## TODO
-- [ ] passé le projet en Symfony 7.4 (trouver comment faire)
+- [x] passé le projet en Symfony 7.4 (trouver comment faire)
   - [ ] exploité le pseudo code du Multi-step form pour valider la fonctionnalité
 ### Optionnel
 - [ ] Améliorer la qualité du code
