@@ -2,6 +2,8 @@
 
 {% block title %}New Product{% endblock %}
 
+{% form_theme form 'tailwind_2_layout.html.twig' %}
+
 {% block body %}
     <div class="mb-8">
         <p class="text-sm font-medium text-gray-500">
@@ -17,25 +19,29 @@
     {{ form_widget(form[form.vars.cursor.currentStep]) }}
 
     <div class="mt-6 flex justify-between">
-        {% if form.navigator.back is defined %}
-            {{ form_widget(form.navigator.back, {
-                attr: {class: 'px-4 py-2 bg-gray-500 text-white rounded'}
-            }) }}
-        {% else %}
-            <div></div>
-        {% endif %}
+        <div class="flex gap-2">
+            <a href="{{ path('app_product_formflow_reset') }}" class="px-4 py-2 bg-red-500 text-white rounded">
+                Annuler
+            </a>
+            {% if form.navigator.back is defined %}
+                {{ form_widget(form.navigator.back, {
+                    attr: {class: 'px-4 py-2 bg-gray-500 text-white rounded'}
+                }) }}
+            {% endif %}
+        </div>
 
-        {% if form.navigator.next is defined %}
-            {{ form_widget(form.navigator.next, {
-                attr: {class: 'px-4 py-2 bg-blue-600 text-white rounded'}
-            }) }}
-        {% endif %}
-
-        {% if form.navigator.finish is defined %}
-            {{ form_widget(form.navigator.finish, {
-                attr: {class: 'px-4 py-2 bg-blue-600 text-white rounded'}
-            }) }}
-        {% endif %}
+        <div class="flex gap-2">
+            {% if form.navigator.next is defined %}
+                {{ form_widget(form.navigator.next, {
+                    attr: {class: 'px-4 py-2 bg-blue-600 text-white rounded'}
+                }) }}
+            {% endif %}
+            {% if form.navigator.finish is defined %}
+                {{ form_widget(form.navigator.finish, {
+                    attr: {class: 'px-4 py-2 bg-blue-600 text-white rounded'}
+                }) }}
+            {% endif %}
+        </div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

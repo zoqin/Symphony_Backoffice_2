@@ -4,6 +4,7 @@ namespace App\Form\Product;
 
 use App\Entity\Product;
 use App\Form\Product\Step\Data\ProductFlowDto;
+use App\Form\Product\Step\ProductConfirmationStepType;
 use Symfony\Component\Form\Flow\AbstractFlowType;
 use App\Form\Product\Step\ProductTypeStepType;
 use App\Form\Product\Step\ProductDetailsStepType;
@@ -20,8 +21,13 @@ class ProductFlowType extends AbstractFlowType
     {
         $builder->addStep('type', ProductTypeStepType::class);
         $builder->addStep('details', ProductDetailsStepType::class);
-        $builder->addStep('physique', ProductLogisticsStepType::class);
-        $builder->addStep('numerique', ProductLicenseStepType::class);
+        $builder->addStep('physique', ProductLogisticsStepType::class,
+            skip: fn (ProductFlowDto $data) => $data->type !== 'physique'
+        );
+        $builder->addStep('numerique', ProductLicenseStepType::class,
+            skip: fn (ProductFlowDto $data) => $data->type !== 'numerique'
+        );
+        $builder->addStep('confirmation', ProductConfirmationStepType::class);
 
         $builder->add('navigator', ProductNavigatorType::class);
     }

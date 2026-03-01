@@ -2,6 +2,7 @@
 
 namespace App\Form\Product\Step\Data;
 
+use App\Form\Product\Step\Data\Step\ConfirmationDto;
 use App\Form\Product\Step\Data\Step\DetailsDto;
 use App\Form\Product\Step\Data\Step\NumeriqueDto;
 use App\Form\Product\Step\Data\Step\PhysiqueDto;
@@ -27,5 +28,10 @@ class ProductFlowDto
     // step 4 : numerique
     #[Assert\Valid(groups : ['numerique'])]
     public ?NumeriqueDto $numerique = null;
+
+    // step 5 : confirmation
+    #[Assert\NotBlank(groups : ['confirmation'])]
+    #[Assert\IsTrue(groups: ['confirmation'])]
+    public ?bool $confirmation = null;
 
 }

@@ -16,7 +16,11 @@ class ProductDetailsStepType extends AbstractType
         $builder
             ->add('name')
             ->add('description', TextareaType::class)
-            ->add('price', MoneyType::class, ['currency' => 'EUR', 'divisor' => 1]);
+            ->add('price', MoneyType::class, [
+                'label' => 'Prix ',
+                'currency' => 'EUR',
+                'divisor' => 1
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

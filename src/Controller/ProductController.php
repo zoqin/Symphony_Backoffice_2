@@ -62,14 +62,29 @@ final class ProductController extends AbstractController
     #[IsGranted('PRODUCT_CREATE')]
     public function form(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $product = new Product();
-
         /** @var FormFlowInterface $flow */
         $flow = $this->createForm(ProductFlowType::class, new ProductFlowDto())
             ->handleRequest($request);
 
         if ($flow->isSubmitted() && $flow->isValid() && $flow->isFinished()) {
+            /** @var ProductFlowDto */
+            $data = $flow->getData();
+
+            // Reset les données de l'étape non choisie
+            if ($data->type === 'physique') {
+                $data->numerique = null;
+            } else {
+                $data->physique = null;
+            }
+
+            $product = new Product();
+            $product->setName($data->details->name);
+            $product->setDescription($data->details->description);
+            $product->setPrice($data->details->price);
+            //les autres variables n'existe pas dans product
+
             $entityManager->persist($product);
+            $entityManager->flush();
 
             $this->addFlash('success', 'Formulaire correctement complété !');
 
@@ -79,7 +94,21 @@ final class ProductController extends AbstractController
         return $this->render('product/flow_new.html.twig', [
             'form'=> $flow->getStepForm(),
         ]);
+    }
 
+    #[Route('/formflow/debug', name: 'app_product_formflow_debug')]
+    public function debug(Request $request): Response
+    {
+        dd($request->getSession()->all());
+    }
+
+    #[Route('/formflow/reset', name: 'app_product_formflow_reset')]
+    #[IsGranted('PRODUCT_CREATE')]
+    public function formReset(Request $request): Response
+    {
+        $request->getSession()->remove('_sf_formflow.app_form_product_productflowtype_product_flow');
+
+        return $this->redirectToRoute('app_product_index');
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
