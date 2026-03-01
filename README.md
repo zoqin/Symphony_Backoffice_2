@@ -1,5 +1,12 @@
 ## 🦕
 
+| Nom         | Paquet--Kremer                                                                                                                                                                                                                   |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Prénom      | Robin                                                                                                                                                                                                                            |
+| Classe      | BUT3GP3RA2                                                                                                                                                                                                                       |
+| Vidéo       | [Video démonstration](https://youtu.be/OpfWDm1_i9A)                                                                                                                                                                              |
+| Commentaire | Dans la vidéo login ne disparait pas après la connexion cela a était corrigé et je pense que lors de l'import du csv cela a pris l'ancien CSV que j'avais export, un détail mais qui aurait pu mettre en doute la fonctionnalité |
+
 ---
 
 ## Initialisation de votre IDE
@@ -127,6 +134,7 @@ docker run -it --rm `
 - Requête personnalisée pour trier les produits par prix décroissant, utilisez pour afficher la liste
 - Fonctionnalité d'export CSV au clique d'un bouton dans un service
 - Commande Symfony pour importer un CSV
+- Implémentation d'un Multi-step form avec condition
 
 ### Gestion des clients
 - Entité
@@ -138,7 +146,7 @@ docker run -it --rm `
 
 ## TODO
 - [x] passé le projet en Symfony 7.4 (trouver comment faire)
-  - [ ] exploité le pseudo code du Multi-step form pour valider la fonctionnalité
+  - [x] exploité le pseudo code du Multi-step form pour valider la fonctionnalité
 ### Optionnel
 - [ ] Améliorer la qualité du code
 - [ ] Implémenter des tests
